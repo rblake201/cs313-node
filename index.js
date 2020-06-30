@@ -14,9 +14,7 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + '/public/postalForm.html'));
-  })
+  .get('/', (req, res) => res.render('/public/postalForm.html'))
   .get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
@@ -30,6 +28,9 @@ express()
     }
   })
   .get('/cool', (req, res) => res.send(cool()))
+  .get('/postal', function(request, response) {
+    response.sendFile(path.join(__dirname + '/public/postalForm.html'));
+  })
   .get('/getForm', function(request, response) {
     var requestUrl = url.parse(request.url, true);
 
