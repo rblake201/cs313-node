@@ -40,7 +40,7 @@ express()
 
     calculateRate(response, type, weight);
   })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
   function getRate(response, type, weight)
   {
