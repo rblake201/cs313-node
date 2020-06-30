@@ -39,8 +39,8 @@ const PORT = process.env.PORT || 5000
     var type = requestUrl.query.type;
 
     getRate(res, type, weight);
-  })
-  app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  });
+  app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
   function getRate(res, type, weight)
   {
