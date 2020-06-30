@@ -14,7 +14,9 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('/public/postalForm.html'))
+  .get('/', function(request, response) {
+    response.sendFile(path.join(__dirname + '/public/package.html'));
+  })
   .get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
@@ -38,7 +40,7 @@ express()
 
     calculateRate(response, type, weight);
   })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
   function getRate(response, type, weight)
   {
