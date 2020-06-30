@@ -8,15 +8,15 @@ const pool = new Pool({
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const path = require('path')
-const url = require('url');
+var url = require('url');
+var app = express();
 const PORT = process.env.PORT || 5000
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .get('/db', async (req, res) => {
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.set('views', path.join(__dirname, 'views'));
+  app.set('view engine', 'ejs');
+  app.get('/', (req, res) => res.render('pages/index'));
+  app.get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM test_table');
@@ -27,17 +27,23 @@ express()
       console.error(err);
       res.send("Error " + err);
     }
-  })
-  .get('/cool', (req, res) => res.send(cool()))
-  .get('/postal', function(req, res) {
+  });
+  app.get('/cool', (req, res) => res.send(cool()));
+  app.get('/postal', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/postalForm.html'));
-  })
-  .get('/getForm', function(req, res) {
+  });
+  app.get('/getForm', function(req, res) {
     var requestUrl = url.parse(req.url, true);
   
     var weight = Number(requestUrl.query.weight);
     var type = requestUrl.query.type;
 
+    getRate(res, type, weight);
+  })
+  app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
+  function getRate(res, type, weight)
+  {
     var result = 0;
 
     if (type == "stamped") {
@@ -116,5 +122,4 @@ express()
     var params = {type: type, weight: weight, result: result};
   
     response.render('pages/getRate', params);
-  })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  }
