@@ -39,7 +39,7 @@ express()
     var weight = Number(requestUrl.query.weight);
     var type = requestUrl.query.type;
 
-    calculateRate(response, type, weight);
+    getRate(response, type, weight);
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
@@ -118,9 +118,9 @@ express()
       type = "Large Envelope";
     }else if(type == "retail"){
       type = "Retail";
+    }
   
     var params = {type: type, weight: weight, result: result};
   
     response.render('pages/getRate', params);
   }
-}
