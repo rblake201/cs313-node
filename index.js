@@ -121,5 +121,5 @@ const PORT = process.env.PORT || 5000
   
     var params = {type: type, weight: weight, result: result};
   
-    response.render('pages/getRate', params);
+    res.render('pages/getRate', params);
   }
