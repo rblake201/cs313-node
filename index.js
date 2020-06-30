@@ -39,12 +39,6 @@ express()
     var weight = Number(requestUrl.query.weight);
     var type = requestUrl.query.type;
 
-    getRate(response, type, weight);
-  })
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-
-  function getRate(response, type, weight)
-  {
     var result = 0;
 
     if (type == "stamped") {
@@ -123,4 +117,5 @@ express()
     var params = {type: type, weight: weight, result: result};
   
     response.render('pages/getRate', params);
-  }
+  })
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
