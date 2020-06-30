@@ -15,7 +15,7 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + '/public/package.html'));
+    response.sendFile(path.join(__dirname + '/public/postalForm.html'));
   })
   .get('/db', async (req, res) => {
     try {
