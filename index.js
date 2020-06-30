@@ -8,6 +8,7 @@ const pool = new Pool({
 const cool = require('cool-ascii-faces')
 const express = require('express')
 const path = require('path')
+const url = require('url');
 const PORT = process.env.PORT || 5000
 
 express()
@@ -33,8 +34,6 @@ express()
   })
   .get('/getForm', function(req, res) {
     var requestUrl = url.parse(req.url, true);
-
-    console.log("Query parameters: " + JSON.stringify(requestUrl.query));
   
     var weight = Number(requestUrl.query.weight);
     var type = requestUrl.query.type;
