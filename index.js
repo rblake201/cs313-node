@@ -28,11 +28,11 @@ express()
     }
   })
   .get('/cool', (req, res) => res.send(cool()))
-  .get('/postal', function(request, response) {
-    response.sendFile(path.join(__dirname + '/public/postalForm.html'));
+  .get('/postal', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/postalForm.html'));
   })
-  .get('/getForm', function(request, response) {
-    var requestUrl = url.parse(request.url, true);
+  .get('/getForm', function(req, res) {
+    var requestUrl = url.parse(req.url, true);
 
     console.log("Query parameters: " + JSON.stringify(requestUrl.query));
   
