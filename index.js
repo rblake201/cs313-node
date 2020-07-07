@@ -40,6 +40,9 @@ const PORT = process.env.PORT || 5000
 
     getRate(res, type, weight);
   });
+  app.get('/pokedex', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/pokedex.html'));
+  });
   app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
   function getRate(res, type, weight)
